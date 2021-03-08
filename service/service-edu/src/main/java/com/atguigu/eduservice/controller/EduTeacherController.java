@@ -29,7 +29,8 @@ import java.util.Map;
  */
 @Api(description = "讲师管理")
 @RestController
-@RequestMapping("/eduservice/edu-teacher")
+@RequestMapping("/eduservice/teacher")
+@CrossOrigin
 public class EduTeacherController {
 
     @Autowired
@@ -117,8 +118,8 @@ public class EduTeacherController {
 
     @ApiOperation("新增讲师")
     @PostMapping("/addTeacher")
-    public R addTeacher(@RequestBody EduTeacher eduTeacher) {
-        boolean save = eduTeacherService.save(eduTeacher);
+    public R addTeacher(@RequestBody EduTeacher teacher) {
+        boolean save = eduTeacherService.save(teacher);
         if (save) {
             return R.success();
         } else {
