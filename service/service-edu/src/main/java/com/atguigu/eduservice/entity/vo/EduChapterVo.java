@@ -1,5 +1,6 @@
 package com.atguigu.eduservice.entity.vo;
 
+import com.atguigu.eduservice.entity.EduVideo;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModelProperty;
@@ -22,6 +23,6 @@ public class EduChapterVo {
 
 
     @ApiModelProperty(value = "小节集合")
-    private List<EduVideoVo> videoVoList;
+    private List<EduVideo> children;
 
 }

@@ -4,13 +4,24 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data
-public class EduCourseVo {
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
+@ApiModel(value="EduCourseInfoVo", description="课程")
+public class EduCourseInfoVo implements Serializable {
+
+    private static final long serialVersionUID = -3953970241895915228L;
+    @ApiModelProperty(value = "课程ID")
+    private String id;
 
     @ApiModelProperty(value = "课程讲师ID")
     private String teacherId;
@@ -33,6 +44,7 @@ public class EduCourseVo {
     @ApiModelProperty(value = "课程封面图片路径")
     private String cover;
 
-//    @ApiModelProperty(value = "课程状态 Draft未发布  Normal已发布")
-//    private String status;
+    @ApiModelProperty(value = "课程简介")
+    private String description;
+
 }

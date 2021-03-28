@@ -2,7 +2,8 @@ package com.atguigu.eduservice.service;
 
 import com.atguigu.eduservice.entity.EduCourse;
 import com.atguigu.eduservice.entity.bo.EduCourseBO;
-import com.atguigu.eduservice.entity.vo.EduCourseVo;
+import com.atguigu.eduservice.entity.vo.EduCourseInfoVo;
+import com.atguigu.eduservice.entity.vo.EduCoursePublicVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -15,5 +16,15 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface EduCourseService extends IService<EduCourse> {
 
-    int addCourse(EduCourseBO eduCourseBO);
+    String addCourse(EduCourseBO eduCourseBO);
+
+    EduCourseInfoVo getCourseInfo(String courseId);
+
+    String updateCourseInfo(EduCourseInfoVo eduCourseInfoVo);
+
+    EduCoursePublicVo getCoursePublicByCourseId(String courseId);
+
+    int coursePublic(EduCoursePublicVo eduCoursePublicVo);
+
+    void deleteCourse(String courseId);
 }
