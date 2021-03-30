@@ -58,6 +58,9 @@ public class EduCourseController {
     @GetMapping("/getCourseInfo/{courseId}")
     @ApiOperation("根据课程id获取课程信息")
     public R getCourseInfo(@ApiParam(name = "courseId", value = "课程ID", required = true) @PathVariable(required = true, name = "courseId") String courseId) {
+        if(StringUtils.isEmpty(courseId)){
+            return R.error().message("课程ID不能为空！");
+        }
         EduCourseInfoVo eduCourseInfoVo = eduCourseService.getCourseInfo(courseId);
 
         return R.success().data("data", eduCourseInfoVo);
@@ -78,6 +81,9 @@ public class EduCourseController {
     @GetMapping("/getCoursePublic/{courseId}")
     @ApiOperation("根据课程id获取课程发布信息")
     public R getCoursePublicByCourseId(@ApiParam(name = "courseId", value = "courseId", required = true) @PathVariable(name = "courseId") String courseId) {
+        if(StringUtils.isEmpty(courseId)){
+            return R.error().message("课程ID不能为空！");
+        }
         EduCoursePublicVo eduCoursePublicVo = eduCourseService.getCoursePublicByCourseId(courseId);
         return R.success().data("data", eduCoursePublicVo);
     }

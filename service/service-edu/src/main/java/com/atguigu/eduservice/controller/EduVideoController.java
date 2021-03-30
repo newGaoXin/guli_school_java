@@ -53,6 +53,8 @@ public class EduVideoController {
     @DeleteMapping("/delete/{videoId}")
     @ApiOperation("删除小节")
     public R deleteVideo(@ApiParam(name = "videoId",value = "videoId",required = true)@PathVariable(name = "videoId")String videoId){
+
+        // TODO 删除小节 阿里云视频
         boolean remove = eduVideoService.removeById(videoId);
         if (!remove){
             return R.error().message("删除小节失败");

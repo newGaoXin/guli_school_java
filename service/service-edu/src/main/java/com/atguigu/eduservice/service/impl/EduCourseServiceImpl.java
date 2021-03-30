@@ -100,7 +100,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
         //2.根据id查询课程详情
         QueryWrapper<EduCourseDescription> eduCourseDescriptionQueryWrapper = new QueryWrapper<>();
-        eduCourseDescriptionQueryWrapper.eq("edu_course_id",eduCourseInfoVo.getId());
+        eduCourseDescriptionQueryWrapper.eq("edu_course_id",eduCourse.getId());
         EduCourseDescription eduCourseDescription = eduCourseDescriptionService.getOne(eduCourseDescriptionQueryWrapper);
         if (eduCourseDescription == null ){
             throw new GuliException(ResultCode.ERROR,"更新课程失败");
@@ -144,6 +144,8 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         if (eduCourse == null){
             throw new GuliException(ResultCode.ERROR,"课程不存在！");
         }
+
+        // TODO 删除小节 阿里云视频
 
         // 删除关联的小节
         QueryWrapper<EduVideo> eduVideoQueryWrapper = new QueryWrapper<>();
