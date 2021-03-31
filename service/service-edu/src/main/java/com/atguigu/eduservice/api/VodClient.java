@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient("service-vod")
+@FeignClient(value = "service-vod",fallback = VodFileDegradeFeignClient.class)
 @Component
 public interface VodClient {
 
