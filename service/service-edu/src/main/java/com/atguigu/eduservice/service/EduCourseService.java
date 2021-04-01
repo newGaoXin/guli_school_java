@@ -6,6 +6,8 @@ import com.atguigu.eduservice.entity.vo.EduCourseInfoVo;
 import com.atguigu.eduservice.entity.vo.EduCoursePublicVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 课程 服务类
@@ -27,4 +29,8 @@ public interface EduCourseService extends IService<EduCourse> {
     int coursePublic(EduCoursePublicVo eduCoursePublicVo);
 
     void deleteCourse(String courseId);
+
+    List<EduCourse> getHotCourseByLimit(Integer limit);
+
+    List<EduCourse> getHotCourse();
 }

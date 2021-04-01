@@ -19,6 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Objects;
+
 /**
  * <p>
  * 课程 前端控制器
@@ -138,6 +141,15 @@ public class EduCourseController {
         return R.success();
     }
 
+    @GetMapping("/hotCourseByLimit/{limit}")
+    public R getHotCourseByLimit(@PathVariable(value = "limit") Integer limit){
+        if (Objects.isNull(limit) || limit == 0){
+            return R.error().message("limit不能为空或者为0!");
+        }
 
+       List<EduCourse> list = eduCourseService.getHotCourseByLimit(limit);
+
+        return R.success().data("list",list);
+    }
 }
 

@@ -19,10 +19,12 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -169,5 +171,25 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         if (!courseDescriptionRemove){
             throw new GuliException(ResultCode.ERROR,"删除关联课程详情失败!");
         }
+    }
+
+    @Override
+    public List<EduCourse> getHotCourseByLimit(Integer limit) {
+
+        QueryWrapper<EduCourse> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("view_count");
+        queryWrapper.last("limit " + limit);
+        List<EduCourse> list = super.baseMapper.selectList(queryWrapper);
+        return list;
+    }
+
+    @Cacheable(value = "idnex",key = "'getHotCourse'")
+    @Override
+    public List<EduCourse> getHotCourse() {
+        QueryWrapper<EduCourse> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("view_count");
+        queryWrapper.last("limit 8");
+        List<EduCourse> list = super.baseMapper.selectList(queryWrapper);
+        return list;
     }
 }

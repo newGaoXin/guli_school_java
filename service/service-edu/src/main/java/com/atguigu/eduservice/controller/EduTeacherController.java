@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * <p>
@@ -148,6 +149,17 @@ public class EduTeacherController {
         } else {
             return R.error();
         }
+    }
+
+    @GetMapping("/getHotTeacherByLimit/{limit}")
+    public R getHotTeacherByLimit(@PathVariable("limit") Integer limit){
+        if (Objects.isNull(limit) || limit == 0){
+            return R.error().message("limit不能为空或者为0!");
+        }
+
+        List<EduTeacher> teacherList = eduTeacherService.getHotTeacherByLimit(limit);
+
+        return R.success().data("data",teacherList);
     }
 }
 
