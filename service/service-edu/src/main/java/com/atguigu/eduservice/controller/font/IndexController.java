@@ -1,4 +1,4 @@
-package com.atguigu.eduservice.controller;
+package com.atguigu.eduservice.controller.font;
 
 import com.atguigu.commonutlis.utils.R;
 import com.atguigu.eduservice.entity.EduCourse;

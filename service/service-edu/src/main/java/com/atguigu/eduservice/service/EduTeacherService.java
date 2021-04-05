@@ -4,6 +4,7 @@ import com.atguigu.eduservice.entity.EduTeacher;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -18,4 +19,6 @@ public interface EduTeacherService extends IService<EduTeacher> {
     List<EduTeacher> getHotTeacherByLimit(Integer limit);
 
     List<EduTeacher> getHotTeacher();
+
+    Map<String, Object> getPageListWeb(int current, int limit);
 }
