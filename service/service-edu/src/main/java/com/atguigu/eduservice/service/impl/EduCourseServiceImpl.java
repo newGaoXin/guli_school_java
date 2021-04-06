@@ -7,6 +7,7 @@ import com.atguigu.eduservice.entity.EduCourse;
 import com.atguigu.eduservice.entity.EduCourseDescription;
 import com.atguigu.eduservice.entity.EduVideo;
 import com.atguigu.eduservice.entity.bo.EduCourseBO;
+import com.atguigu.eduservice.entity.vo.CourseQueryVo;
 import com.atguigu.eduservice.entity.vo.EduCourseInfoVo;
 import com.atguigu.eduservice.entity.vo.EduCoursePublicVo;
 import com.atguigu.eduservice.mapper.EduCourseMapper;
@@ -16,6 +17,8 @@ import com.atguigu.eduservice.service.EduCourseService;
 import com.atguigu.eduservice.service.EduVideoService;
 import com.atguigu.servicebase.handler.exception.GuliException;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +26,11 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -191,5 +197,41 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         queryWrapper.last("limit 8");
         List<EduCourse> list = super.baseMapper.selectList(queryWrapper);
         return list;
+    }
+
+    @Override
+    public Map<String, Object> pageListFont(int current, int limit, CourseQueryVo courseQueryVo) {
+        Page<EduCourse> page = new Page<>(current, limit);
+
+        QueryWrapper<EduCourse> queryWrapper = new QueryWrapper<>();
+
+        if (!StringUtils.isEmpty(courseQueryVo.getSubjectId())){
+            queryWrapper.eq("subject_id",courseQueryVo.getSubjectId());
+        }
+
+        if (!StringUtils.isEmpty(courseQueryVo.getSubjectParentId())){
+            queryWrapper.eq("subject_parent_id",courseQueryVo.getSubjectParentId());
+        }
+
+        if (!StringUtils.isEmpty(courseQueryVo.getBuyCountSort())){
+            queryWrapper.orderByDesc("buy_count");
+        }
+        if (!StringUtils.isEmpty(courseQueryVo.getGmtCreateSort())){
+            queryWrapper.orderByDesc("gmt_create");
+        }
+        if (!StringUtils.isEmpty(courseQueryVo.getPriceSort())){
+            queryWrapper.orderByDesc("price");
+        }
+        super.baseMapper.selectPage(page, queryWrapper);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("items", page.getRecords());
+        map.put("current", page.getCurrent());
+        map.put("pages", page.getPages());
+        map.put("size", page.getSize());
+        map.put("total", page.getTotal());
+        map.put("hasNext", page.hasNext());
+        map.put("hasPrevious", page.hasPrevious());
+        return map;
     }
 }
