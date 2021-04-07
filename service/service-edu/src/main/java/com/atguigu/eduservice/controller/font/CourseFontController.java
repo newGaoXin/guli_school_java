@@ -2,6 +2,7 @@ package com.atguigu.eduservice.controller.font;
 
 import com.atguigu.commonutlis.utils.R;
 import com.atguigu.eduservice.entity.vo.CourseQueryVo;
+import com.atguigu.eduservice.entity.vo.CourseWebVo;
 import com.atguigu.eduservice.service.EduCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,5 +30,14 @@ public class CourseFontController{
         Map<String, Object> data = eduCourseService.pageListFont(current,limit,courseQueryVo);
 
         return R.success().data("page",data);
+    }
+
+    @GetMapping("/{id}")
+    public R getById(@PathVariable String id){
+
+        CourseWebVo courseWebVo = eduCourseService.getCourseInfoFont(id);
+
+
+        return R.success().data("courseInfo",courseWebVo);
     }
 }

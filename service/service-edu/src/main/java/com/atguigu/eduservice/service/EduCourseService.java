@@ -3,6 +3,7 @@ package com.atguigu.eduservice.service;
 import com.atguigu.eduservice.entity.EduCourse;
 import com.atguigu.eduservice.entity.bo.EduCourseBO;
 import com.atguigu.eduservice.entity.vo.CourseQueryVo;
+import com.atguigu.eduservice.entity.vo.CourseWebVo;
 import com.atguigu.eduservice.entity.vo.EduCourseInfoVo;
 import com.atguigu.eduservice.entity.vo.EduCoursePublicVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -38,4 +39,6 @@ public interface EduCourseService extends IService<EduCourse> {
     List<EduCourse> getHotCourse();
 
     Map<String, Object> pageListFont(int current, int limit, CourseQueryVo courseQueryVo);
+
+    CourseWebVo getCourseInfoFont(String id);
 }

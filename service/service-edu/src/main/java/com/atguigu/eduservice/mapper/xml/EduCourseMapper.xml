@@ -10,6 +10,20 @@
         LEFT JOIN edu_subject es2 ON ec.subject_parent_id = es2.id
         LEFT JOIN edu_teacher et ON ec.teacher_id = et.id
     WHERE
-        ec.id = '1272143340875386882';
+        ec.id = #{courseId};
+    </select>
+
+    <select id="getCourseInfoFont" resultType="com.atguigu.eduservice.entity.vo.CourseWebVo">
+        SELECT
+			ec.id, ec.title,ec.price,ec.lesson_num,ec.cover,ec.lesson_num,ec.buy_count,ec.view_count,
+			ec.teacher_id,ecd.description,ec.subject_id,es1.title AS subject_level_two ,ec.subject_parent_id,es2.title AS subject_level_one,
+			et.`name` AS teacher_name,et.intro,et.avatar
+		FROM `edu_course` ec
+        LEFT JOIN edu_course_description ecd ON ec.id = ecd.edu_course_id
+        LEFT JOIN edu_subject es1 ON ec.subject_id = es1.id
+        LEFT JOIN edu_subject es2 ON ec.subject_parent_id = es2.id
+        LEFT JOIN edu_teacher et ON ec.teacher_id = et.id
+    WHERE
+        ec.id =  #{courseId};
     </select>
 </mapper>

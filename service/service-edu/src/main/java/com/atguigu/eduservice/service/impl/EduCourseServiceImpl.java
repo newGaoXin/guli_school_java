@@ -7,14 +7,9 @@ import com.atguigu.eduservice.entity.EduCourse;
 import com.atguigu.eduservice.entity.EduCourseDescription;
 import com.atguigu.eduservice.entity.EduVideo;
 import com.atguigu.eduservice.entity.bo.EduCourseBO;
-import com.atguigu.eduservice.entity.vo.CourseQueryVo;
-import com.atguigu.eduservice.entity.vo.EduCourseInfoVo;
-import com.atguigu.eduservice.entity.vo.EduCoursePublicVo;
+import com.atguigu.eduservice.entity.vo.*;
 import com.atguigu.eduservice.mapper.EduCourseMapper;
-import com.atguigu.eduservice.service.EduChapterService;
-import com.atguigu.eduservice.service.EduCourseDescriptionService;
-import com.atguigu.eduservice.service.EduCourseService;
-import com.atguigu.eduservice.service.EduVideoService;
+import com.atguigu.eduservice.service.*;
 import com.atguigu.servicebase.handler.exception.GuliException;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -233,5 +228,14 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         map.put("hasNext", page.hasNext());
         map.put("hasPrevious", page.hasPrevious());
         return map;
+    }
+
+    @Override
+    public CourseWebVo getCourseInfoFont(String id) {
+        CourseWebVo courseInfoFont = super.baseMapper.getCourseInfoFont(id);
+
+        List<EduChapterVo> chapterAndVideoList = eduChapterService.getChapterAndVideoList(id);
+        courseInfoFont.setChapterAndVideoList(chapterAndVideoList);
+        return courseInfoFont;
     }
 }
