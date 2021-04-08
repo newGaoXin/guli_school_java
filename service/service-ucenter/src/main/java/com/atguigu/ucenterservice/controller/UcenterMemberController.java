@@ -79,5 +79,11 @@ public class UcenterMemberController {
         return R.success().data("data",loginInfo);
     }
 
+    @GetMapping("/{userId}")
+    public R getUcentMember(@PathVariable("userId")String userId){
+        UcenterMember ucenterMember = ucenterMemberService.getById(userId);
+        return R.success().data("UcenterMember",ucenterMember);
+    }
+
 }
 

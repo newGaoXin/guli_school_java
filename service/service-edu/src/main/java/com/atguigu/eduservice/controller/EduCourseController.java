@@ -151,5 +151,11 @@ public class EduCourseController {
 
         return R.success().data("list",list);
     }
+
+    @GetMapping("/{courseId}")
+    public R getCourse(@PathVariable("courseId") String courseId){
+        EduCourse eduCourse = eduCourseService.getById(courseId);
+        return R.success().data("eduCourse",eduCourse);
+    }
 }
 

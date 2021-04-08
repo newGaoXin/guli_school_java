@@ -1,6 +1,8 @@
 package com.atguigu.vod.controller;
 
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthResponse;
 import com.atguigu.commonutlis.utils.R;
+import com.atguigu.vod.Utils.VodUtil;
 import com.atguigu.vod.service.VideoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -57,5 +59,11 @@ public class VodController {
             return R.error().message("删除视频失败!");
         }
         return R.success();
+    }
+
+    @GetMapping("/getVideoPlayAuth/{id}")
+    public R getVideoPlayAuth(@PathVariable String id){
+        GetVideoPlayAuthResponse videoPlayAuth = VodUtil.getVideoPlayAuth(id);
+        return R.success().data("data",videoPlayAuth);
     }
 }

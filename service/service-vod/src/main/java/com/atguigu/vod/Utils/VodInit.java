@@ -3,18 +3,20 @@ package com.atguigu.vod.Utils;
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.profile.DefaultProfile;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthRequest;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthResponse;
 import org.springframework.stereotype.Component;
 
 @Component
 public class VodInit {
 
-    private static final DefaultAcsClient client = null ;
+    private static final DefaultAcsClient client = null;
 
     public static DefaultAcsClient initVodClient() throws ClientException {
 
-        if (client == null){
-            synchronized (VodInit.class){
-                if (client == null){
+        if (client == null) {
+            synchronized (VodInit.class) {
+                if (client == null) {
                     String regionId = "cn-shanghai";  // 点播服务接入区域
                     String accessKeyId = ConstantPropertiesUtil.ACCESS_KEY_ID;
                     String accessKeySecret = ConstantPropertiesUtil.ACCESS_KEY_SECRET;
@@ -28,4 +30,10 @@ public class VodInit {
         return client;
 
     }
+
+    public static void main(String[] args) {
+
+    }
+
+
 }
