@@ -21,14 +21,15 @@ import javax.servlet.http.HttpServletRequest;
  * @since 2021-04-08
  */
 @RestController
-@RequestMapping("/eduservice/t-order")
+@RequestMapping("/orderservice/order")
+@CrossOrigin
 public class TOrderController {
 
     @Autowired
     private TOrderService tOrderService;
 
-    @PostMapping("/createOrder")
-    public R createOrder(String courseId, HttpServletRequest request){
+    @PostMapping("/createOrder/{courseId}")
+    public R createOrder(@PathVariable("courseId") String courseId, HttpServletRequest request){
         String userId = JwtUtils.getMemberIdByJwtToken(request);
         String orderNo = tOrderService.createOrder(courseId,userId);
         if (StringUtils.isEmpty(orderNo)){
